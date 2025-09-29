@@ -32,6 +32,8 @@ android {
 }
 
 dependencies {
+    implementation("com.jakewharton.threetenabp:threetenabp:1.4.4")
+
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.activity:activity:1.8.2")
