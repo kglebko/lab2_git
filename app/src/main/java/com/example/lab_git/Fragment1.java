@@ -1,31 +1,40 @@
 package com.example.lab_git;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.DayOfWeek;
 
-public class MainActivity1 extends AppCompatActivity {
+public class Fragment1 extends Fragment {
 
     private DatePicker startDatePicker, endDatePicker;
     private Button btnShow;
     private TextView tvResult;
 
+    public Fragment1() {} // обязательный пустой конструктор
+
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity1_main, container, false);
 
-        setContentView(R.layout.activity1_main);
-
-        startDatePicker = findViewById(R.id.startDatePicker);
-        endDatePicker = findViewById(R.id.endDatePicker);
-        btnShow = findViewById(R.id.btnShow);
-        tvResult = findViewById(R.id.tvResult);
+        startDatePicker = view.findViewById(R.id.startDatePicker);
+        endDatePicker = view.findViewById(R.id.endDatePicker);
+        btnShow = view.findViewById(R.id.btnShow);
+        tvResult = view.findViewById(R.id.tvResult);
 
         btnShow.setOnClickListener(v -> {
             LocalDate startDate = LocalDate.of(
@@ -57,6 +66,7 @@ public class MainActivity1 extends AppCompatActivity {
                 tvResult.setText(schedule.toString());
             }
         });
+
+        return view;
     }
 }
-
