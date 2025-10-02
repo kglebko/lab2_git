@@ -28,7 +28,7 @@ public class Fragment2 extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.activity_main, container, false);
+        View view = inflater.inflate(R.layout.activity2_main, container, false);
 
         datePicker = view.findViewById(R.id.datePicker);
         btnCheck = view.findViewById(R.id.btnCheck);
