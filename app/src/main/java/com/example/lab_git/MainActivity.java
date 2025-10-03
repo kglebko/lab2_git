@@ -1,90 +1,37 @@
 package com.example.lab_git;
 
 import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.TimePicker;
-
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
-
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
-
-    private DatePicker datePicker;
-    private TimePicker timePicker;
-    private EditText inputHours, inputMinutes;
-    private Button btnCalculate;
-    private TextView tvResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.nav_menu);
 
-        datePicker = findViewById(R.id.datePicker);
-        timePicker = findViewById(R.id.timePicker);
-        inputHours = findViewById(R.id.inputHours);
-        inputMinutes = findViewById(R.id.inputMinutes);
-        btnCalculate = findViewById(R.id.btnCalculate);
-        tvResult = findViewById(R.id.tvResult);
+        BottomNavigationView bottomNav = findViewById(R.id.bottomNavigation);
 
-        timePicker.setIs24HourView(true);
+        bottomNav.setOnItemSelectedListener(item -> {
+            int id = item.getItemId();
 
-        btnCalculate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                int year = datePicker.getYear();
-                int month = datePicker.getMonth();
-                int day = datePicker.getDayOfMonth();
-                int hour = timePicker.getHour();
-                int minute = timePicker.getMinute();
-
-
-                Calendar calendar = Calendar.getInstance();
-                calendar.set(year, month, day, hour, minute);
-                Date date = calendar.getTime();
-
-
-                int addHours = 0, addMinutes = 0;
-                try {
-                    addHours = Integer.parseInt(inputHours.getText().toString());
-                }
-                catch (Exception ignored) {}
-
-                try {
-                    addMinutes = Integer.parseInt(inputMinutes.getText().toString());
-                }
-                catch (Exception ignored) {}
-
-
-                calendar.add(Calendar.HOUR_OF_DAY, addHours);
-                calendar.add(Calendar.MINUTE, addMinutes);
-                Date newDate = calendar.getTime();
-
-                // форматированный вывод DateTimeFormatter
-                LocalDateTime localDateTime = newDate.toInstant()
-                        .atZone(ZoneId.systemDefault())
-                        .toLocalDateTime();
-
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
-
-                String result = localDateTime.format(formatter);
-
-
-                tvResult.setText("Результат: " + result);
+            if (id == R.id.nav_screen2) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container, new Fragment2())
+                        .commit();
+                return true;
             }
+            else if (id == R.id.nav_screen3) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container, new Fragment3())
+                        .commit();
+                return true;
+            }
+            return false;
         });
+
+        // по умолчанию открываем первый экран
+        bottomNav.setSelectedItemId(R.id.nav_screen2);
     }
 }
